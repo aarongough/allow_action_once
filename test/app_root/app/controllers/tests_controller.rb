@@ -1,19 +1,14 @@
 class TestsController < ApplicationController
 
+  #allow_action_once :only => [:protected_action]
+
   # GET /tests/show
   def show
     head :success
   end
   
-  # POST /tests/upmod/1
-  def upmod
-    allow_action_once
-    head :success
-  end
-  
-  # POST /tests/downmod/1
-  def downmod
-    allow_action_once
+  # POST /tests/protected_action/1
+  def protected_action
     head :success
   end
 

@@ -1,1 +1,1 @@
-# AllowActionOnce
+require 'allow_action_once/extend_actioncontroller.rb'
