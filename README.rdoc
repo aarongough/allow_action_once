@@ -1,0 +1,39 @@
+== allow_action_once
+
+allow_action_once is a plugin for Rails that allows you to restrict a user to performing a given action only once. For example if you have a poll that you want anonymous visitors to be able to use, but you don't want each user to be able to vote multiple times you can user allow_action_once. allow_action_once was extracted from {has_threaded_comments}[http://github.com/aarongough/has_threaded_comments] and then given significant love and attention.
+
+=== Example
+
+Let's say you don't want a user to be able to submit more than one vote in your poll/rating system, just add allow_action_once to your controller like so:
+
+  class PollController < ApplicationController
+    
+    allow_action_once :only => [:vote]
+    
+    # POST /poll/vote/1
+    def vote
+      # update the item in the database
+    end
+    
+  end
+
+=== Installation
+
+Install via the Rails plugin system:
+
+  ./script/plugin install git://github.com/aarongough/allow_action_once.git
+  
+=== How it works
+
+After you install allow_action_once every time a user requests a page from your application a 'challenge cookie' is set. In order for the user to be able to vote the application must receive the challenge cookie back. This stops people from simply disabling their cookies and voting a bunch of times. 
+
+After the user has voted another cookie is set with an  identifier for that action. If they try to perform the action again then they get a response of :bad_request (this is designed to be used with AJAX requests). 
+
+At the moment unique users are only identified using cookies, however a new version of allow_action_once is coming soon that employs a secondary method as well.
+
+=== Caveats
+
+Requiring users to create accounts for your application lowers your conversion rate. So allowing anonymous users is a good thing! But there is a downside: there is no way that you can guarantee that a user will not be able to vote multiple times. They might clear their cookies, they may use another computer, etc... In practice this is generally not a big issue as long as you are aware of it!
+
+
+Copyright (c) 2010 {Aaron Gough}[http://thingsaaronmade.com/] {thingsaaronmade.com}[http://thingsaaronmade.com/], released under the MIT license
