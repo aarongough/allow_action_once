@@ -4,9 +4,13 @@ class TestsControllerTest < ActionController::TestCase
   
   @cookie_name = 'allowed_once_cookies_enabled'
   
+  def setup
+    @controller = TestsController.new
+  end
+  
   test "performing an unprotected action should return success" do
     get :show
-    assert_response :success, @response.inspect
+    assert_response :success
   end
   
   test "performing an unprotected action should result in challenge cookie being set" do
