@@ -25,15 +25,18 @@ Install via the Rails plugin system:
   
 === How it works
 
-After you install allow_action_once every time a user requests a page from your application a 'challenge cookie' is set. In order for the user to be able to vote the application must receive the challenge cookie back. This stops people from simply disabling their cookies and voting a bunch of times. 
+After you install allow_action_once every time a user requests a page from your application a 'challenge cookie' is set. In order for the user to be able to perform a protected action the application must receive the challenge cookie back. This stops people from simply disabling their cookies and voting/rating/flaggin/etc a bunch of times. 
 
-After the user has voted another cookie is set with an  identifier for that action. If they try to perform the action again then they get a response of :bad_request (this is designed to be used with AJAX requests). 
+After the user has performed a protected action another cookie is set with an identifier for that action. If they try to perform the action again then they get a response of :bad_request (this is designed to be used with AJAX requests). 
 
 At the moment unique users are only identified using cookies, however a new version of allow_action_once is coming soon that employs a secondary method as well.
 
 === Caveats
 
-Requiring users to create accounts for your application lowers your conversion rate. So allowing anonymous users is a good thing! But there is a downside: there is no way that you can guarantee that a user will not be able to vote multiple times. They might clear their cookies, they may use another computer, etc... In practice this is generally not a big issue as long as you are aware of it!
+Requiring users to create accounts for your application lowers your conversion rate. So allowing anonymous users is a good thing! But there is a downside: there is no way that you can guarantee that a user will not be able to vote multiple times. They might clear their cookies, they might use another computer, etc... In practice this is generally not a big issue as long as you are aware of it!
 
+=== Author
+
+Author:: {Aaron Gough}[mailto:aaron@aarongough.com]
 
 Copyright (c) 2010 {Aaron Gough}[http://thingsaaronmade.com/] {thingsaaronmade.com}[http://thingsaaronmade.com/], released under the MIT license
