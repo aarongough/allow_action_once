@@ -2,18 +2,21 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_helper.rb
 
 class TestsControllerTest < ActionController::TestCase
   
-  @cookie_name = 'allowed_once_cookies_enabled'
+  def setup
+    @cookie_name = 'allow_once_cookies_enabled'
+    @controller = TestsController.new
+  end
   
   test "performing an unprotected action should return success" do
     get :show
-    assert_response :success, @response.inspect
+    assert_response :success
   end
   
   test "performing an unprotected action should result in challenge cookie being set" do
     assert_nil @request.cookies[@cookie_name]
     get :show
     assert_response :success
-    assert @request.cookies[@cookie_name]
+    assert @response.cookies[@cookie_name]
   end
   
   test "performing a protected action without the challenge cookie being set should return bad request" do
@@ -31,7 +34,7 @@ class TestsControllerTest < ActionController::TestCase
     assert_nil @request.cookies['/tests/protected_action/1']
     set_challenge_cookie
     post :protected_action, :id => 1
-    assert @request.cookies['/tests/protected_action/1']
+    assert @response.cookies['/tests/protected_action/1']
   end
   
   test "attempting to perform protected action more than once should return bad request" do

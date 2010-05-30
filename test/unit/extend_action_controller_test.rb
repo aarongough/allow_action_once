@@ -11,9 +11,9 @@ class ExtendActionControllerTest < ActiveSupport::TestCase
     assert ActionController::Base.filter_chain.length > 0
   end
   
-  # Test that ActionController::Base now has an instance method called allow_action_once
+  # Test that ActionController::Base now has our new methods
   test "ActionController::Base should have allow_action_once method" do
-    assert ActionController::Base.instance_methods.include?("allow_action_once")
+    assert ActionController::Base.methods.include?("allow_action_once")
   end
   
 end
